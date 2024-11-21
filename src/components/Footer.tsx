@@ -17,17 +17,17 @@ export function Footer() {
             <h3 className="font-bold mb-4">Spellen</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/speel" className="text-gray-400 hover:text-[#38F8AC]">
+                <Link to="/kikup-woord-spel" className="text-gray-400 hover:text-[#38F8AC]">
                   Woordspel
                 </Link>
               </li>
               <li>
-                <Link to="/memory" className="text-gray-400 hover:text-[#38F8AC]">
+                <Link to="/kikup-memory-spel" className="text-gray-400 hover:text-[#38F8AC]">
                   Memory
                 </Link>
               </li>
               <li>
-                <Link to="/woordzoeker" className="text-gray-400 hover:text-[#38F8AC]">
+                <Link to="/kikup-woordzoeker-spel" className="text-gray-400 hover:text-[#38F8AC]">
                   Woordzoeker
                 </Link>
               </li>
