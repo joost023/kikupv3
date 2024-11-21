@@ -3,6 +3,7 @@ import { useToast } from '@/hooks/use-toast';
 import { getLocalHighScores, saveHighScore, isNewHighScore, GAME_IDS } from '@/lib/utils';
 import { getMemoryCards } from '@/lib/memoryCards';
 import type { MemoryCard } from '@/types/memory';
+import * as analytics from '@/lib/analytics';
 
 export function useMemoryGame() {
   const [cards, setCards] = useState<MemoryCard[]>([]);
@@ -30,6 +31,8 @@ export function useMemoryGame() {
     setTimerRunning(false);
     setCurrentTime(0);
     setShowNameDialog(false);
+    
+    analytics.trackGameStart('Memory');
   }, []);
 
   useEffect(() => {
@@ -39,8 +42,11 @@ export function useMemoryGame() {
   const handleTimerComplete = useCallback((time: number) => {
     if (isWinner) {
       setCurrentTime(time);
+      analytics.trackGameComplete('Memory', time);
+      
       if (isNewHighScore(time, GAME_IDS.MEMORY)) {
         setShowNameDialog(true);
+        analytics.trackHighScore('Memory', time);
       }
     }
   }, [isWinner]);

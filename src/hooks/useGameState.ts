@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import words from '@/data/words.json';
 import { isNewHighScore, GAME_IDS } from '@/lib/utils';
+import * as analytics from '@/lib/analytics';
 
 export function useGameState() {
   const [currentWord, setCurrentWord] = useState('');
@@ -34,6 +35,8 @@ export function useGameState() {
     setCurrentTime(0);
     setShowNameDialog(false);
     if (length) setWordLength(length);
+    
+    analytics.trackGameStart('Woordspel');
   }, [wordLength, getRandomWord]);
 
   useEffect(() => {
@@ -44,8 +47,11 @@ export function useGameState() {
   const handleTimerComplete = useCallback((time: number) => {
     if (isWinner) {
       setCurrentTime(time);
+      analytics.trackGameComplete('Woordspel', time);
+      
       if (isNewHighScore(time, GAME_IDS.WORD_GAME)) {
         setShowNameDialog(true);
+        analytics.trackHighScore('Woordspel', time);
       }
     }
   }, [isWinner]);

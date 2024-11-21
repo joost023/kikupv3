@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Bell, Loader2 } from 'lucide-react';
 import { saveNewsletterSubscription } from '@/lib/newsletter';
+import * as analytics from '@/lib/analytics';
 
 export function Newsletter() {
   const [email, setEmail] = useState('');
@@ -30,6 +31,7 @@ export function Newsletter() {
 
     try {
       saveNewsletterSubscription(email, 'homepage');
+      analytics.trackNewsletterSignup('homepage');
       
       toast({
         title: "Succesvol ingeschreven! 🎉",

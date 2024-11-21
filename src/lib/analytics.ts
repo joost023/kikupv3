@@ -10,7 +10,43 @@ export const pageview = (url: string) => {
   }
 };
 
-// Log specific events
+// Game specific events
+export const trackGameStart = (gameName: string) => {
+  event({
+    action: 'game_start',
+    category: 'Games',
+    label: gameName
+  });
+};
+
+export const trackGameComplete = (gameName: string, score: number) => {
+  event({
+    action: 'game_complete',
+    category: 'Games',
+    label: gameName,
+    value: score
+  });
+};
+
+export const trackHighScore = (gameName: string, score: number) => {
+  event({
+    action: 'new_high_score',
+    category: 'Games',
+    label: gameName,
+    value: score
+  });
+};
+
+// Newsletter events
+export const trackNewsletterSignup = (source: string) => {
+  event({
+    action: 'newsletter_signup',
+    category: 'Engagement',
+    label: source
+  });
+};
+
+// Generic event tracking
 export const event = ({ action, category, label, value }: {
   action: string;
   category: string;
